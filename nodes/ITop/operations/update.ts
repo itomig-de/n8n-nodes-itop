@@ -1,0 +1,114 @@
+import type { INodeProperties } from 'n8n-workflow';
+import { classNameField, keyField, outputFieldsField, commentField } from '../shared/descriptions';
+
+export const updateOperation: INodeProperties = {
+	displayName: 'Operation',
+	name: 'operation',
+	type: 'options',
+	noDataExpression: true,
+	options: [
+		{
+			name: 'Update',
+			value: 'update',
+			action: 'Update an iTop object',
+			description: 'Update a single iTop object with new field values',
+		},
+	],
+	default: 'update',
+};
+
+export const updateFields: INodeProperties[] = [
+	{
+		...classNameField,
+		displayOptions: {
+			show: {
+				operation: ['update'],
+			},
+		},
+	},
+	{
+		...keyField,
+		description: 'Object identifier: numeric ID or search criteria. Note: Key must identify exactly ONE object, bulk updates are not supported.',
+		displayOptions: {
+			show: {
+				operation: ['update'],
+			},
+		},
+	},
+	{
+		displayName: 'Fields to Update',
+		name: 'fields',
+		type: 'fixedCollection',
+		typeOptions: {
+			multipleValues: true,
+		},
+		placeholder: 'Add Field',
+		default: {},
+		required: true,
+		displayOptions: {
+			show: {
+				operation: ['update'],
+			},
+		},
+		options: [
+			{
+				name: 'field',
+				displayName: 'Field',
+				values: [
+					{
+						displayName: 'Field Name',
+						name: 'name',
+						type: 'string',
+						default: '',
+						placeholder: 'e.g. status, team_id, description',
+						description: 'The name of the field to update',
+					},
+					{
+						displayName: 'Field Value',
+						name: 'value',
+						type: 'string',
+						default: '',
+						description: 'The new value for the field',
+					},
+				],
+			},
+		],
+	},
+	{
+		...outputFieldsField,
+		displayOptions: {
+			show: {
+				operation: ['update'],
+			},
+		},
+	},
+	{
+		...commentField,
+		displayOptions: {
+			show: {
+				operation: ['update'],
+			},
+		},
+	},
+	{
+		displayName: 'Additional Options',
+		name: 'additionalOptions',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		displayOptions: {
+			show: {
+				operation: ['update'],
+			},
+		},
+		options: [
+			{
+				displayName: 'Simulation Mode',
+				name: 'simulate',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to simulate the update without actually modifying the object',
+			},
+		],
+	},
+];
