@@ -9,6 +9,10 @@ import {
 import { getFields } from './operations/get';
 import { updateFields } from './operations/update';
 import { iTopApiRequest, formatITopResponse } from './shared/transport';
+import { createFields } from './operations/create';
+import { deleteFields } from './operations/delete';
+import { applyStimulusFields, applyStimulusOperation } from './operations/apply_stimulus';
+
 
 export class ITop implements INodeType {
 	description: INodeTypeDescription = {
@@ -79,11 +83,32 @@ export class ITop implements INodeType {
 						action: 'Update an iTop object',
 						description: 'Update a single iTop object',
 					},
+					{
+						name: 'Create',
+						value: 'create',
+						action: 'Create a new iTop object',
+						description: 'Create a new object in iTop',
+					},
+					{
+						name: 'Delete',
+						value: 'delete',
+						action: 'Delete an iTop object',
+						description: 'Delete an existing object in iTop',
+					},
+					{
+						name: 'Apply Stimulus',
+						value: 'apply_stimulus',
+						action: 'Update an object and apply a stimulus to change its state',
+						description: 'Update fields and apply a stimulus on a single iTop object',
+					},
 				],
 				default: 'get',
 			},
 			...getFields,
 			...updateFields,
+			...createFields,
+			...deleteFields,
+			...applyStimulusFields,
 		],
 	};
 
@@ -127,7 +152,6 @@ export class ITop implements INodeType {
 					const comment = this.getNodeParameter('comment', i, '') as string;
 					const additionalOptions = this.getNodeParameter('additionalOptions', i, {}) as IDataObject;
 
-					// Convert fixedCollection format to simple object
 					const fields: IDataObject = {};
 					if (fieldsToUpdate.field && Array.isArray(fieldsToUpdate.field)) {
 						for (const field of fieldsToUpdate.field) {
@@ -154,6 +178,88 @@ export class ITop implements INodeType {
 					}
 
 					const response = await iTopApiRequest.call(this, 'core/update', requestData);
+					const formattedItems = formatITopResponse(response);
+					returnData.push(...formattedItems);
+
+				} else if (operation === 'create') {
+					const className = this.getNodeParameter('class', i) as string;
+					const fieldsToCreate = this.getNodeParameter('fields', i) as IDataObject;
+					const outputFields = this.getNodeParameter('output_fields', i) as string;
+					const comment = this.getNodeParameter('comment', i, '') as string;
+
+					const fields: IDataObject = {};
+					if (fieldsToCreate.field && Array.isArray(fieldsToCreate.field)) {
+						for (const field of fieldsToCreate.field) {
+							const fieldData = field as IDataObject;
+							if (fieldData.name && fieldData.value !== undefined) {
+								fields[fieldData.name as string] = fieldData.value;
+							}
+						}
+					}
+
+					const requestData: IDataObject = {
+						class: className,
+						fields,
+						output_fields: outputFields,
+					};
+
+					if (comment) {
+						requestData.comment = comment;
+					}
+
+					const response = await iTopApiRequest.call(this, 'core/create', requestData);
+					const formattedItems = formatITopResponse(response);
+					returnData.push(...formattedItems);
+
+				} else if (operation === 'delete') {
+					const className = this.getNodeParameter('class', i) as string;
+					const key = this.getNodeParameter('key', i) as string;
+					const comment = this.getNodeParameter('comment', i, '') as string;
+
+					const requestData: IDataObject = {
+						class: className,
+						key,
+					};
+
+					if (comment) {
+						requestData.comment = comment;
+					}
+
+					const response = await iTopApiRequest.call(this, 'core/delete', requestData);
+					const formattedItems = formatITopResponse(response);
+					returnData.push(...formattedItems);
+
+				} else if (operation === 'apply_stimulus') {
+					const className = this.getNodeParameter('class', i) as string;
+					const key = this.getNodeParameter('key', i) as string;
+					const stimulus = this.getNodeParameter('stimulus', i) as string;
+					const fieldsToUpdate = this.getNodeParameter('fields', i) as IDataObject;
+					const outputFields = this.getNodeParameter('output_fields', i) as string;
+					const comment = this.getNodeParameter('comment', i, '') as string;
+
+					const fields: IDataObject = {};
+					if (fieldsToUpdate.field && Array.isArray(fieldsToUpdate.field)) {
+						for (const field of fieldsToUpdate.field) {
+							const fieldData = field as IDataObject;
+							if (fieldData.name && fieldData.value !== undefined) {
+								fields[fieldData.name as string] = fieldData.value;
+							}
+						}
+					}
+
+					const requestData: IDataObject = {
+						class: className,
+						key,
+						stimulus,
+						fields,
+						output_fields: outputFields,
+					};
+
+					if (comment) {
+						requestData.comment = comment;
+					}
+
+					const response = await iTopApiRequest.call(this, 'core/apply_stimulus', requestData);
 					const formattedItems = formatITopResponse(response);
 					returnData.push(...formattedItems);
 				}
