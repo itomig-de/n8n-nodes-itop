@@ -52,28 +52,31 @@ export class ITopApi implements ICredentialType {
 	};
 
 	test: ICredentialTestRequest = {
-		request: {
-			baseURL: '={{$credentials.url}}/webservices/rest.php',
-			url: '?version={{$credentials.version}}',
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			body: {
-				json_data: '={{ JSON.stringify({ operation: "core/check_credentials" }) }}',
-				auth_user: '={{$credentials.username}}',
-				auth_pwd: '={{$credentials.password}}',
-			},
-		},
-		rules: [
-			{
-				type: 'responseSuccessBody',
-				properties: {
-					key: 'authorized',
-					value: true,
-					message: 'Authentication failed. Please check your username and password.',
-				},
-			},
-		],
-	};
+        request: {
+            baseURL: '={{$credentials.url}}/webservices/rest.php',
+            url: '',
+            method: 'POST',
+            
+            json: true, 
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: {
+                json_data: '={{ JSON.stringify({ operation: "core/get", class: "Organization", limit: 1 }) }}',
+                auth_user: '={{$credentials.username}}',
+                auth_pwd: '={{$credentials.password}}',
+                version: '={{$credentials.version}}',
+            },
+        },
+        rules: [
+            {
+                type: 'responseSuccessBody',
+                properties: {
+                    key: 'code',
+                    value: 0,
+                    message: 'Authentication failed. Please check your credentials and URL.',
+                },
+            },
+        ],
+    };
 }

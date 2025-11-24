@@ -11,7 +11,7 @@ import { updateFields } from './operations/update';
 import { iTopApiRequest, formatITopResponse } from './shared/transport';
 import { createFields } from './operations/create';
 import { deleteFields } from './operations/delete';
-import { applyStimulusFields, applyStimulusOperation } from './operations/apply_stimulus';
+import { applyStimulusFields } from './operations/apply_stimulus';
 
 
 export class ITop implements INodeType {
