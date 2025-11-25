@@ -1,22 +1,6 @@
 import type { INodeProperties } from 'n8n-workflow';
 import { classNameField, keyField, outputFieldsField, commentField } from '../shared/descriptions';
 
-export const updateOperation: INodeProperties = {
-	displayName: 'Operation',
-	name: 'operation',
-	type: 'options',
-	noDataExpression: true,
-	options: [
-		{
-			name: 'Update',
-			value: 'update',
-			action: 'Update an iTop object',
-			description: 'Update a single iTop object with new field values',
-		},
-	],
-	default: 'update',
-};
-
 export const updateFields: INodeProperties[] = [
 	{
 		...classNameField,

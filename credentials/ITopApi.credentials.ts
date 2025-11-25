@@ -3,12 +3,18 @@ import type {
 	ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
+	Icon,
 } from 'n8n-workflow';
 
 export class ITopApi implements ICredentialType {
 	name = 'iTopApi';
 
 	displayName = 'iTop API';
+
+	icon: Icon = {
+		light: 'file:../nodes/ITop/icons/itop.svg',
+		dark: 'file:../nodes/ITop/icons/itop-dark.svg',
+	};
 
 	documentationUrl = 'https://www.itophub.io/wiki/page?id=latest:advancedtopics:rest_json';
 

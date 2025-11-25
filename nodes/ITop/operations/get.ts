@@ -1,22 +1,6 @@
 import type { INodeProperties } from 'n8n-workflow';
 import { classNameField, keyField, outputFieldsField, limitField } from '../shared/descriptions';
 
-export const getOperation: INodeProperties = {
-	displayName: 'Operation',
-	name: 'operation',
-	type: 'options',
-	noDataExpression: true,
-	options: [
-		{
-			name: 'Get',
-			value: 'get',
-			action: 'Get objects from iTop',
-			description: 'Search for and retrieve iTop objects using OQL query or object key',
-		},
-	],
-	default: 'get',
-};
-
 export const getFields: INodeProperties[] = [
 	{
 		...classNameField,

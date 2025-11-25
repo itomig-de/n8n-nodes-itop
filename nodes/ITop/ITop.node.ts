@@ -14,11 +14,15 @@ export class ITop implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'iTop',
 		name: 'iTop',
-		icon: 'file:itop.png',
+			icon: {
+				light: 'file:icons/itop.svg',
+				dark: 'file:icons/itop-dark.svg',
+			},
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"]}}',
 		description: 'Interact with iTop CMDB via REST API',
+		usableAsTool: true,
 		defaults: {
 			name: 'iTop',
 		},
@@ -70,13 +74,13 @@ export class ITop implements INodeType {
 					{
 						name: 'Get',
 						value: 'get',
-						action: 'Get objects from iTop',
+						action: 'Get objects',
 						description: 'Search for and retrieve iTop objects',
 					},
 					{
 						name: 'Update',
 						value: 'update',
-						action: 'Update an iTop object',
+						action: 'Update an object',
 						description: 'Update a single iTop object',
 					},
 				],
@@ -116,7 +120,7 @@ export class ITop implements INodeType {
 					}
 
 					const response = await iTopApiRequest.call(this, 'core/get', requestData);
-					const formattedItems = formatITopResponse(response);
+					const formattedItems = formatITopResponse(response, i);
 					returnData.push(...formattedItems);
 
 				} else if (operation === 'update') {
@@ -154,7 +158,7 @@ export class ITop implements INodeType {
 					}
 
 					const response = await iTopApiRequest.call(this, 'core/update', requestData);
-					const formattedItems = formatITopResponse(response);
+					const formattedItems = formatITopResponse(response, i);
 					returnData.push(...formattedItems);
 				}
 			} catch (error) {
