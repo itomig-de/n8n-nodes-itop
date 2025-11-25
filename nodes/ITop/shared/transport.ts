@@ -92,6 +92,7 @@ export function formatITopResponse(
 	itemIndex = 0,
 ): INodeExecutionData[] {
 	const items: INodeExecutionData[] = [];
+	let hasObjects = false;
 
 	if (response.objects) {
 		const objects = response.objects as IDataObject;
@@ -115,7 +116,32 @@ export function formatITopResponse(
 				json: jsonData,
 				pairedItem: { item: itemIndex },
 			});
+			hasObjects = true;
 		}
+	}
+
+	if (!hasObjects) {
+		const jsonData: IDataObject = {};
+
+		if (response.code !== undefined) {
+			jsonData._code = response.code;
+		}
+
+		if (response.message !== undefined) {
+			jsonData._message = response.message;
+		}
+
+		for (const [key, value] of Object.entries(response)) {
+			if (key === 'objects' || key === 'code' || key === 'message') {
+				continue;
+			}
+			jsonData[key] = value;
+		}
+
+		items.push({
+			json: jsonData,
+			pairedItem: { item: itemIndex },
+		});
 	}
 
 	return items;

@@ -33,10 +33,10 @@ export const limitField: INodeProperties = {
 	displayName: 'Limit',
 	name: 'limit',
 	type: 'number',
-	default: 50,
-	description: 'Max number of results to return',
+	default: 0,
+	description: 'Maximum number of results to return. 0 means no limit.',
 	typeOptions: {
-		minValue: 1,
+		minValue: 0,
 	},
 };
 
