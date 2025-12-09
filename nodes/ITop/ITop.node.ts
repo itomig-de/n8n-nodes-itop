@@ -5,6 +5,7 @@ import {
 	type INodeType,
 	type INodeTypeDescription,
 	type IDataObject,
+	ApplicationError,
 } from 'n8n-workflow';
 import { getFields } from './operations/get';
 import { updateFields } from './operations/update';
@@ -77,31 +78,31 @@ export class ITop implements INodeType {
 					{
 						name: 'Apply Stimulus',
 						value: 'apply_stimulus',
-						action: 'Apply a stimulus for an iTop object',
+						action: 'Apply stimulus to an object',
 						description: 'Update fields and apply a stimulus on a single iTop object',
 					},
 					{
 						name: 'Create',
 						value: 'create',
-						action: 'Create a new iTop object',
+						action: 'Create a new object',
 						description: 'Create a new object in iTop',
 					},
 					{
 						name: 'Delete',
 						value: 'delete',
-						action: 'Delete an iTop object',
+						action: 'Delete an object',
 						description: 'Delete an existing object in iTop',
 					},
 					{
 						name: 'Get',
 						value: 'get',
-						action: 'Get objects from iTop',
+						action: 'Get objects',
 						description: 'Search for and retrieve iTop objects',
 					},
 					{
 						name: 'Update',
 						value: 'update',
-						action: 'Update an iTop object',
+						action: 'Update an object',
 						description: 'Update a single iTop object',
 					},
 				],
@@ -147,7 +148,7 @@ export class ITop implements INodeType {
 						break;
 
 					default:
-						throw new Error(`Unknown operation: ${operation}`);
+						throw new ApplicationError(`Unknown operation: ${operation}`);
 				}
 
 				returnData.push(...operationResult);

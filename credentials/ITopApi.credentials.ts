@@ -76,10 +76,18 @@ export class ITopApi implements ICredentialType {
 				type: 'responseSuccessBody',
 				properties: {
 					key: 'code',
-					value: 0,
-					message: 'Authentication failed. Please check your username and password.',
+					value: 1,
+					message: 'Authentication failed. Missing/wrong credentials or the user does not have enough rights to perform the requested operation.',
 				},
 			},
+			{
+				type: 'responseSuccessBody',
+				properties: {
+					key: 'code',
+					value: 100,
+					message: 'Request failed. Internal iTop Error.',
+				},
+			}
 		],
 	};
 }
