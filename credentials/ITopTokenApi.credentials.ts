@@ -60,7 +60,7 @@ export class ITopTokenApi implements ICredentialType {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 			body: {
-				json_data: '={{ JSON.stringify({ operation: "core/check_credentials" }) }}',
+				json_data: '={{ JSON.stringify({ operation: "list_operations" }) }}',
 				auth_token: '={{$credentials.authToken}}',
 			},
 		},
@@ -68,8 +68,8 @@ export class ITopTokenApi implements ICredentialType {
 			{
 				type: 'responseSuccessBody',
 				properties: {
-					key: 'authorized',
-					value: true,
+					key: 'code',
+					value: 0,
 					message: 'Authentication failed. Please check your token.',
 				},
 			},

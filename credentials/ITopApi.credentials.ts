@@ -66,7 +66,7 @@ export class ITopApi implements ICredentialType {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 			body: {
-				json_data: '={{ JSON.stringify({ operation: "core/check_credentials" }) }}',
+				json_data: '={{ JSON.stringify({ operation: "list_operations" }) }}',
 				auth_user: '={{$credentials.username}}',
 				auth_pwd: '={{$credentials.password}}',
 			},
@@ -75,8 +75,8 @@ export class ITopApi implements ICredentialType {
 			{
 				type: 'responseSuccessBody',
 				properties: {
-					key: 'authorized',
-					value: true,
+					key: 'code',
+					value: 0,
 					message: 'Authentication failed. Please check your username and password.',
 				},
 			},
