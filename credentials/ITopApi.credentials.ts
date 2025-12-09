@@ -3,12 +3,18 @@ import type {
 	ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
+	Icon,
 } from 'n8n-workflow';
 
 export class ITopApi implements ICredentialType {
 	name = 'iTopApi';
 
 	displayName = 'iTop API';
+
+	icon: Icon = {
+		light: 'file:../nodes/ITop/icons/itop.svg',
+		dark: 'file:../nodes/ITop/icons/itop-dark.svg',
+	};
 
 	documentationUrl = 'https://www.itophub.io/wiki/page?id=latest:advancedtopics:rest_json';
 
@@ -60,7 +66,7 @@ export class ITopApi implements ICredentialType {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 			body: {
-				json_data: '={{ JSON.stringify({ operation: "core/check_credentials" }) }}',
+				json_data: '={{ JSON.stringify({ operation: "list_operations" }) }}',
 				auth_user: '={{$credentials.username}}',
 				auth_pwd: '={{$credentials.password}}',
 			},
@@ -69,11 +75,19 @@ export class ITopApi implements ICredentialType {
 			{
 				type: 'responseSuccessBody',
 				properties: {
-					key: 'authorized',
-					value: true,
-					message: 'Authentication failed. Please check your username and password.',
+					key: 'code',
+					value: 1,
+					message: 'Authentication failed. Missing/wrong credentials or the user does not have enough rights to perform the requested operation.',
 				},
 			},
+			{
+				type: 'responseSuccessBody',
+				properties: {
+					key: 'code',
+					value: 100,
+					message: 'Request failed. Internal iTop Error.',
+				},
+			}
 		],
 	};
 }

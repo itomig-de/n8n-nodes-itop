@@ -8,11 +8,25 @@ import type {
 } from 'n8n-workflow';
 import { NodeApiError } from 'n8n-workflow';
 
+interface ITopApiResponse extends IDataObject {
+	code: number;
+	message?: string;
+	objects?: IDataObject;
+}
+
+interface ITopResponseObject extends IDataObject {
+	class?: string;
+	key?: string;
+	code?: number;
+	message?: string;
+	fields?: IDataObject;
+}
+
 export async function iTopApiRequest(
 	this: IExecuteFunctions | ILoadOptionsFunctions,
 	operation: string,
 	additionalData: IDataObject = {},
-): Promise<any> {
+): Promise<ITopApiResponse> {
 	// Determine which credential type to use based on authentication parameter
 	const authentication = this.getNodeParameter('authentication', 0) as string;
 
@@ -51,7 +65,7 @@ export async function iTopApiRequest(
 	};
 
 	try {
-		const response = await this.helpers.httpRequest(options);
+		const response = (await this.helpers.httpRequest(options)) as ITopApiResponse;
 
 		// Check for iTop API errors
 		if (response.code !== 0) {
@@ -73,13 +87,17 @@ export async function iTopApiRequest(
 /**
  * Helper function to format iTop response objects into n8n items
  */
-export function formatITopResponse(response: IDataObject): INodeExecutionData[] {
+export function formatITopResponse(
+	response: ITopApiResponse,
+	itemIndex = 0,
+): INodeExecutionData[] {
 	const items: INodeExecutionData[] = [];
+	let hasObjects = false;
 
 	if (response.objects) {
 		const objects = response.objects as IDataObject;
 		for (const objectKey of Object.keys(objects)) {
-			const object = objects[objectKey] as IDataObject;
+			const object = objects[objectKey] as ITopResponseObject;
 			const fields = object.fields as IDataObject;
 
 			const jsonData: IDataObject = {
@@ -96,9 +114,34 @@ export function formatITopResponse(response: IDataObject): INodeExecutionData[] 
 
 			items.push({
 				json: jsonData,
-				pairedItem: { item: 0 },
+				pairedItem: { item: itemIndex },
 			});
+			hasObjects = true;
 		}
+	}
+
+	if (!hasObjects) {
+		const jsonData: IDataObject = {};
+
+		if (response.code !== undefined) {
+			jsonData._code = response.code;
+		}
+
+		if (response.message !== undefined) {
+			jsonData._message = response.message;
+		}
+
+		for (const [key, value] of Object.entries(response)) {
+			if (key === 'objects' || key === 'code' || key === 'message') {
+				continue;
+			}
+			jsonData[key] = value;
+		}
+
+		items.push({
+			json: jsonData,
+			pairedItem: { item: itemIndex },
+		});
 	}
 
 	return items;

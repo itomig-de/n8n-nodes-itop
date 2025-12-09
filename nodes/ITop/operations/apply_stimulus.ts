@@ -1,21 +1,34 @@
 import type { INodeProperties } from 'n8n-workflow';
 import { classNameField, keyField, outputFieldsField, commentField } from '../shared/descriptions';
 
-export const updateFields: INodeProperties[] = [
+export const applyStimulusFields: INodeProperties[] = [
 	{
 		...classNameField,
 		displayOptions: {
 			show: {
-				operation: ['update'],
+				operation: ['apply_stimulus'],
 			},
 		},
 	},
 	{
 		...keyField,
-		description: 'Object identifier: numeric ID or search criteria. Note: Key must identify exactly ONE object, bulk updates are not supported.',
+		description: 'Object identifier: numeric ID or search criteria. Must uniquely identify one object.',
 		displayOptions: {
 			show: {
-				operation: ['update'],
+				operation: ['apply_stimulus'],
+			},
+		},
+	},
+	{
+		displayName: 'Stimulus',
+		name: 'stimulus',
+		type: 'string',
+		default: '',
+		required: true,
+		description: 'The stimulus to apply (e.g. ev_assign)',
+		displayOptions: {
+			show: {
+				operation: ['apply_stimulus'],
 			},
 		},
 	},
@@ -28,10 +41,9 @@ export const updateFields: INodeProperties[] = [
 		},
 		placeholder: 'Add Field',
 		default: {},
-		required: true,
 		displayOptions: {
 			show: {
-				operation: ['update'],
+				operation: ['apply_stimulus'],
 			},
 		},
 		options: [
@@ -44,15 +56,15 @@ export const updateFields: INodeProperties[] = [
 						name: 'name',
 						type: 'string',
 						default: '',
-						placeholder: 'e.g. status, team_id, description',
-						description: 'The name of the field to update',
+						placeholder: 'e.g. agent_id, team_id',
+						description: 'Name of the field to update before applying the stimulus',
 					},
 					{
 						displayName: 'Field Value',
 						name: 'value',
 						type: 'string',
 						default: '',
-						description: 'The new value for the field',
+						description: 'Value to assign to the field',
 					},
 				],
 			},
@@ -62,7 +74,7 @@ export const updateFields: INodeProperties[] = [
 		...outputFieldsField,
 		displayOptions: {
 			show: {
-				operation: ['update'],
+				operation: ['apply_stimulus'],
 			},
 		},
 	},
@@ -70,29 +82,8 @@ export const updateFields: INodeProperties[] = [
 		...commentField,
 		displayOptions: {
 			show: {
-				operation: ['update'],
+				operation: ['apply_stimulus'],
 			},
 		},
-	},
-	{
-		displayName: 'Additional Options',
-		name: 'additionalOptions',
-		type: 'collection',
-		placeholder: 'Add Option',
-		default: {},
-		displayOptions: {
-			show: {
-				operation: ['update'],
-			},
-		},
-		options: [
-			{
-				displayName: 'Simulation Mode',
-				name: 'simulate',
-				type: 'boolean',
-				default: false,
-				description: 'Whether to simulate the update without actually modifying the object',
-			},
-		],
 	},
 ];
