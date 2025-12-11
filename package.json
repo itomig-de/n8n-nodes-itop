@@ -1,6 +1,6 @@
 {
     "name": "n8n-nodes-itop",
-    "version": "0.1.0",
+    "version": "1.0.1",
     "description": "n8n community node for iTop CMDB integration",
     "publishConfig": {
         "access": "public"
