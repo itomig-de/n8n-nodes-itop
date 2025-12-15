@@ -10,6 +10,11 @@ This is an n8n community node. It lets you use iTop CMDB in your n8n workflows.
 [Compatibility](#compatibility)
 [Resources](#resources)
 
+## Preview
+
+https://github.com/user-attachments/assets/6524dc6b-c6c9-4a39-ae8f-218ec982d13b
+
+
 ## Installation
 
 Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
