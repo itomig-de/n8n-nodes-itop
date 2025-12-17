@@ -6,6 +6,7 @@ export const updateFields: INodeProperties[] = [
 		...classNameField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['update'],
 			},
 		},
@@ -15,6 +16,7 @@ export const updateFields: INodeProperties[] = [
 		description: 'Object identifier: numeric ID or search criteria. Note: Key must identify exactly ONE object, bulk updates are not supported.',
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['update'],
 			},
 		},
@@ -31,6 +33,7 @@ export const updateFields: INodeProperties[] = [
 		required: true,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['update'],
 			},
 		},
@@ -62,6 +65,7 @@ export const updateFields: INodeProperties[] = [
 		...outputFieldsField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['update'],
 			},
 		},
@@ -70,6 +74,7 @@ export const updateFields: INodeProperties[] = [
 		...commentField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['update'],
 			},
 		},
@@ -82,6 +87,7 @@ export const updateFields: INodeProperties[] = [
 		default: {},
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['update'],
 			},
 		},

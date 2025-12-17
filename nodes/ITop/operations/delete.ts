@@ -6,6 +6,7 @@ export const deleteFields: INodeProperties[] = [
 		...classNameField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['delete'],
 			},
 		},
@@ -15,6 +16,7 @@ export const deleteFields: INodeProperties[] = [
 		description: 'The key or ID of the object to delete. Must uniquely identify one object.',
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['delete'],
 			},
 		},
@@ -23,6 +25,7 @@ export const deleteFields: INodeProperties[] = [
 		...commentField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['delete'],
 			},
 		},

@@ -6,6 +6,7 @@ export const createFields: INodeProperties[] = [
 		...classNameField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['create'],
 			},
 		},
@@ -22,6 +23,7 @@ export const createFields: INodeProperties[] = [
 		required: true,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['create'],
 			},
 		},
@@ -53,6 +55,7 @@ export const createFields: INodeProperties[] = [
 		...outputFieldsField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['create'],
 			},
 		},
@@ -61,6 +64,7 @@ export const createFields: INodeProperties[] = [
 		...commentField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['create'],
 			},
 		},
