@@ -46,11 +46,6 @@ export class ITopTokenApi implements ICredentialType {
 		},
 	];
 
-	authenticate: IAuthenticateGeneric = {
-		type: 'generic',
-		properties: {},
-	};
-
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: '={{$credentials.url}}/webservices/rest.php',
