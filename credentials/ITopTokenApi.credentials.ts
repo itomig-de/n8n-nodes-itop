@@ -1,5 +1,4 @@
 import type {
-	IAuthenticateGeneric,
 	ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
@@ -45,11 +44,6 @@ export class ITopTokenApi implements ICredentialType {
 			description: 'The iTop REST API version to use',
 		},
 	];
-
-	authenticate: IAuthenticateGeneric = {
-		type: 'generic',
-		properties: {},
-	};
 
 	test: ICredentialTestRequest = {
 		request: {

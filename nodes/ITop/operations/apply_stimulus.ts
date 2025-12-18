@@ -6,6 +6,7 @@ export const applyStimulusFields: INodeProperties[] = [
 		...classNameField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['apply_stimulus'],
 			},
 		},
@@ -15,6 +16,7 @@ export const applyStimulusFields: INodeProperties[] = [
 		description: 'Object identifier: numeric ID or search criteria. Must uniquely identify one object.',
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['apply_stimulus'],
 			},
 		},
@@ -28,6 +30,7 @@ export const applyStimulusFields: INodeProperties[] = [
 		description: 'The stimulus to apply (e.g. ev_assign)',
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['apply_stimulus'],
 			},
 		},
@@ -43,6 +46,7 @@ export const applyStimulusFields: INodeProperties[] = [
 		default: {},
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['apply_stimulus'],
 			},
 		},
@@ -74,6 +78,7 @@ export const applyStimulusFields: INodeProperties[] = [
 		...outputFieldsField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['apply_stimulus'],
 			},
 		},
@@ -82,6 +87,7 @@ export const applyStimulusFields: INodeProperties[] = [
 		...commentField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['apply_stimulus'],
 			},
 		},

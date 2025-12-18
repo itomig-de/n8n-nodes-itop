@@ -6,6 +6,7 @@ export const getFields: INodeProperties[] = [
 		...classNameField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['get'],
 			},
 		},
@@ -14,6 +15,7 @@ export const getFields: INodeProperties[] = [
 		...keyField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['get'],
 			},
 		},
@@ -22,6 +24,7 @@ export const getFields: INodeProperties[] = [
 		...outputFieldsField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['get'],
 			},
 		},
@@ -30,6 +33,7 @@ export const getFields: INodeProperties[] = [
 		...limitField,
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['get'],
 			},
 		},
@@ -42,6 +46,7 @@ export const getFields: INodeProperties[] = [
 		default: {},
 		displayOptions: {
 			show: {
+				resource: ['object'],
 				operation: ['get'],
 			},
 		},

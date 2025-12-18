@@ -24,7 +24,7 @@ export class ITop implements INodeType {
 			},
 		group: ['transform'],
 		version: 1,
-		subtitle: '={{$parameter["operation"]}}',
+		subtitle: '={{$parameter["resource"] + ": " + $parameter["operation"]}}',
 		description: 'Interact with iTop CMDB via REST API',
 		usableAsTool: true,
 		defaults: {
@@ -70,10 +70,28 @@ export class ITop implements INodeType {
 				default: 'credentials',
 			},
 			{
+				displayName: 'Resource',
+				name: 'resource',
+				type: 'options',
+				noDataExpression: true,
+				options: [
+					{
+						name: 'Object',
+						value: 'object',
+					},
+				],
+				default: 'object',
+			},
+			{
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
 				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['object'],
+					},
+				},
 				options: [
 					{
 						name: 'Apply Stimulus',
